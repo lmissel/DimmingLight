@@ -7,7 +7,7 @@ DimmingLight is a small library that allows you to adjust the brightness of a di
 ## Installation
 The Arduino environment can be extended through the use of libraries, just like most programming platforms. Libraries provide extra functionality for use in sketches, e.g. working with hardware or manipulating data. To use a library in a sketch, select it from ***Sketch > Import Library***.
 
-A number of libraries come installed with the IDE, but you can also download or create your own. See [these instructions](https://docs.arduino.cc/software/ide-v1/tutorials/installing-libraries/) for details on installing libraries. There is also a [tutorial on writing your own libraries](https://docs.arduino.cc/learn/contributions/arduino-creating-library-guide/). See the [API Style Guide](https://docs.arduino.cc/learn/contributions/arduino-library-style-guide/) for information on making a good Arduino-style API for your library.
+A number of libraries come installed with the IDE, but you can also download or create your own. See [these instructions](https://docs.arduino.cc/software/ide-v1/tutorials/installing-libraries/) for details on installing libraries. There is also a [tutorial on writing your own libraries](https://docs.arduino.cc/software/ide-v1/tutorials/installing-libraries/). See the [API Style Guide](https://docs.arduino.cc/learn/contributions/arduino-library-style-guide/) for information on making a good Arduino-style API for your library.
 
 ## Usage (DimmingLightExample)
 This Arduino script demonstrates how to control the brightness of a dimmable lamp using the DimmingLight library. It uses an Arduino microcontroller and an LED connected to pin 9 (PWM). The script switches the LED on, gradually changes its brightness and then switches it off again. The brightness is adjusted up and down via a ramp control and can also be set directly to specific values. The script therefore offers a simple way of controlling a dimmable lamp (e.g. LED, LED string) and can be customised for different brightness levels and ramp times. 
@@ -39,21 +39,26 @@ void setup() {
 
 void loop() {
   dimmingLight.TurnOn();                      // Switches an LED on.
+  dimmingLight.process();
   delay(5000);                                // Wait for 5 seconds
-  dimmingLight.StartRampDown();               // Starts a ramp LED down.
+  dimmingLight.StartRampDown();               // Starts an LED ramp down. This function is currently still blocking the thread.
   delay(5000);                                // Wait for 5 seconds
-  dimmingLight.StartRampUp();                 // Starts a ramp LED up.
+  dimmingLight.StartRampUp();                 // Starts an LED ramp down. This function is currently still blocking the thread.
   delay(5000);                                // Wait for 5 seconds
   dimmingLight.SetOnEffectLevel(75);          // Determines the brightness of the LED. 
   dimmingLight.SetOnEffect("onEffectLevel");  // Specifies that the LED is switched on with the specified brightness.
+  dimmingLight.process();
   delay(5000);                                // Wait for 5 seconds
   dimmingLight.SetOnEffectLevel(50);          // Determines the brightness of the LED. 
   dimmingLight.SetOnEffect("onEffectLevel");  // Specifies that the LED is switched on with the specified brightness.
+  dimmingLight.process();
   delay(5000);                                // Wait for 5 seconds
   dimmingLight.SetOnEffectLevel(25);          // Determines the brightness of the LED. 
   dimmingLight.SetOnEffect("onEffectLevel");  // Specifies that the LED is switched on with the specified brightness.
+  dimmingLight.process();
   delay(5000);                                // Wait for 5 seconds
   dimmingLight.TurnOff();                     // Switches an LED off.
+  dimmingLight.process();
   delay(5000);                                // Wait for 5 seconds
 }
 ```

@@ -37,20 +37,25 @@ void setup() {
 
 void loop() {
   dimmingLight.TurnOn();                      // Switches an LED on.
+  dimmingLight.process();
   delay(5000);                                // Wait for 5 seconds
-  dimmingLight.StartRampDown();               // Starts a ramp LED down.
+  dimmingLight.StartRampDown();               // Starts an LED ramp down. This function is currently still blocking the thread.
   delay(5000);                                // Wait for 5 seconds
-  dimmingLight.StartRampUp();                 // Starts a ramp LED up.
+  dimmingLight.StartRampUp();                 // Starts an LED ramp down. This function is currently still blocking the thread.
   delay(5000);                                // Wait for 5 seconds
   dimmingLight.SetOnEffectLevel(75);          // Determines the brightness of the LED. 
   dimmingLight.SetOnEffect("onEffectLevel");  // Specifies that the LED is switched on with the specified brightness.
+  dimmingLight.process();
   delay(5000);                                // Wait for 5 seconds
   dimmingLight.SetOnEffectLevel(50);          // Determines the brightness of the LED. 
   dimmingLight.SetOnEffect("onEffectLevel");  // Specifies that the LED is switched on with the specified brightness.
+  dimmingLight.process();
   delay(5000);                                // Wait for 5 seconds
   dimmingLight.SetOnEffectLevel(25);          // Determines the brightness of the LED. 
   dimmingLight.SetOnEffect("onEffectLevel");  // Specifies that the LED is switched on with the specified brightness.
+  dimmingLight.process();
   delay(5000);                                // Wait for 5 seconds
   dimmingLight.TurnOff();                     // Switches an LED off.
+  dimmingLight.process();
   delay(5000);                                // Wait for 5 seconds
 }

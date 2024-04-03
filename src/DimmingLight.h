@@ -2,17 +2,11 @@
 
 #include <Arduino.h>
 
-enum LoadLevelStatus
-{
-    Minimum,
-    Maximum,
-    BetweenMinimumAndMaximum
-};
-
 class DimmingLight
 {
 private:
     int _pin;
+    int loadLevel = 0;
     int loadLevelTarget = 0;
     int onEffectLevel = 100;
     int lastConfiguredOnEffectLevel = 100;
@@ -25,6 +19,14 @@ private:
 
     bool isRamping = false;
     bool rampPaused = false;
+
+    bool debugMode = false;
+
+    bool isPulsing = false;
+    bool isOn = false; //Status
+
+    void DebugPrint(const String &message);
+    void execute();
 
 public:
     DimmingLight(uint8_t pin);
@@ -48,7 +50,9 @@ public:
     bool GetIsRamping();
     void PauseRamp();
     void ResumeRamp();
-    void PulseEffect(int pulseInterval);
     void CalculateStepDelta(int targetLoadLevel);
-    LoadLevelStatus GetLoadLevelStatus();
+    int GetLoadLevelStatus();
+    void SetDebugMode(bool debug);
+    void process();
+    bool GetStatus();
 };
